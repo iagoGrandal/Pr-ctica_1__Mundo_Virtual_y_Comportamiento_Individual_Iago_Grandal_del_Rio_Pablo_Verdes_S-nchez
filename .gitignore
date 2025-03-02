@@ -1,0 +1,59 @@
+# Unity Generated Files
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+UserSettings/
+ProjectSettings/
+Packages/
+
+# Visual Studio / Rider
+.vs/
+.idea/
+*.sln*
+*.csproj
+*.unityproj
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.opendb
+*.VC.db
+*.DS_Store
+*.orig
+*.vsconfig
+
+# Unity Cache and Auto-Generated
+MemoryCaptures/
+*.asset
+*.unity
+AssetStoreTools*
+*.pidb.meta
+*.meta
+*.unitypackage
+
+# Ignore crash reports
+CrashReports/
+
+# Ignore compiled code cache
+ScriptAssemblies/
+obj/
+
+# Ignore Play Mode Tests results
+Assets/Scenes/TestResults/
+
+# Ignore auto-generated StreamingAssets
+Assets/StreamingAssets/
+
+# Ignore Unity Cloud Build settings
+[Uu]serSettings/
+
+# Ignore npm dependencies (if using Unity Package Manager with npm)
+node_modules/
+
+*.htm
