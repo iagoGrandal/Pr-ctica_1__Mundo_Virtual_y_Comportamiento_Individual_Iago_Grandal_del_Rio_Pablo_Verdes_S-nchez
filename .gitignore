@@ -57,3 +57,4 @@ Assets/StreamingAssets/
 node_modules/
 
 *.htm
+.qodo

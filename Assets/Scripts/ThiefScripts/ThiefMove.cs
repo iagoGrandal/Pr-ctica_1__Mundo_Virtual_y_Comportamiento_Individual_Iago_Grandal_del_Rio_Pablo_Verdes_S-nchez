@@ -4,27 +4,40 @@ using UnityEngine;
 
 public class ThiefMove : MonoBehaviour
 {
-    public float runSpeed = 7.0f;
+    public float walkSpeed = 5.0f;
+    public float sprintSpeed = 9.0f;
+    public float sneakSpeed = 2.5f;
     public float rotationSpeed = 250.0f;
     public float mouseSensitivity = 2.0f;
     public Animator animator;
+
+    [HideInInspector] public bool isSprinting = false;
+    [HideInInspector] public bool isSneaking = false;
 
     private float rotationY = 0f;
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked; // Bloquea el cursor en el centro de la pantalla
-        Cursor.visible = false; // Oculta el cursor
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
     {
-        // Movimiento con WASD sin afectar la rotación
-        float x = Input.GetAxis("Horizontal"); // Movimiento lateral (A y D)
-        float y = Input.GetAxis("Vertical");   // Movimiento adelante/atrás (W y S)
+        // Detectar teclas para sprint y sigilo
+        isSprinting = Input.GetKey(KeyCode.LeftShift);
+        isSneaking = Input.GetKey(KeyCode.LeftControl);
+
+        float currentSpeed = walkSpeed;
+        if (isSprinting) currentSpeed = sprintSpeed;
+        else if (isSneaking) currentSpeed = sneakSpeed;
+
+        // Movimiento con WASD
+        float x = Input.GetAxis("Horizontal");
+        float y = Input.GetAxis("Vertical");
 
         Vector3 moveDirection = (transform.right * x + transform.forward * y).normalized;
-        transform.position += moveDirection * runSpeed * Time.deltaTime;
+        transform.position += moveDirection * currentSpeed * Time.deltaTime;
 
         // Rotación con el ratón
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
@@ -36,6 +49,8 @@ public class ThiefMove : MonoBehaviour
         {
             animator.SetFloat("VelX", x);
             animator.SetFloat("VelY", y);
+            animator.SetBool("IsSprinting", isSprinting);
+            animator.SetBool("IsSneaking", isSneaking);
         }
     }
 }
