@@ -20,7 +20,6 @@ public class PoliceSearch : MonoBehaviour
     public void StartSearch(Vector3 targetPosition)
     {
         lastKnownPosition = targetPosition;
-        Debug.Log($"{lastKnownPosition}");
         StartCoroutine(SearchRoutine());
     }
 

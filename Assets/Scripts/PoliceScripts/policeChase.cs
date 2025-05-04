@@ -4,46 +4,44 @@ using System;
 
 public class PoliceChase : MonoBehaviour
 {
+    public float chaseSpeed = 5f;
+    public event Action OnThiefCaught;
+
     private NavMeshAgent agent;
     private Transform target;
     private bool isChasing = false;
-    private float captureDistance = 1.5f;
 
-    public bool IsChasing => isChasing;
-    public event Action OnThiefCaught;
-
-    void Start()
+    void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
     }
 
     void Update()
     {
-        if (isChasing && target != null)
-        {
-            // Actualizamos el destino cada frame para seguir al ladrón
-            agent.SetDestination(target.position);
+        if (!isChasing || target == null) return;
+        agent.SetDestination(target.position);
 
-            if (Vector3.Distance(transform.position, target.position) < captureDistance)
-            {
-                OnThiefCaught?.Invoke();
-                StopChase();
-            }
+        if (Vector3.Distance(transform.position, target.position) < 1.5f)
+        {
+            isChasing = false;
+            agent.ResetPath();
+            OnThiefCaught?.Invoke();
         }
     }
 
     public void StartChase(Transform thief)
     {
-        if (!isChasing || target == null)
-        {
-            target = thief;
-            isChasing = true;
-            agent.SetDestination(target.position);
-        }
+        target     = thief;
+        isChasing  = true;
+        agent.speed = chaseSpeed;
+        agent.isStopped = false;
     }
 
     public void StopChase()
     {
-        isChasing = false;  
+        isChasing = false;
+        agent.ResetPath();
+        agent.isStopped = true;
+        target = null;
     }
 }

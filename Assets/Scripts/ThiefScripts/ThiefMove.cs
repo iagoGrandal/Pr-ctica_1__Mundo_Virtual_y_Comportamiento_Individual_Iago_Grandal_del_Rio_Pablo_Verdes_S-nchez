@@ -39,7 +39,7 @@ public class ThiefMove : MonoBehaviour
         Vector3 moveDirection = (transform.right * x + transform.forward * y).normalized;
         transform.position += moveDirection * currentSpeed * Time.deltaTime;
 
-        // Rotación con el ratón
+        // Rotaciï¿½n con el ratï¿½n
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         rotationY += mouseX * rotationSpeed * Time.deltaTime;
         transform.rotation = Quaternion.Euler(0, rotationY, 0);
